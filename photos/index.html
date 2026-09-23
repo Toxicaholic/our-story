@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Наша история ❤️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top right, #2a1b3d, #0d0e15 60%),
+                  radial-gradient(circle at bottom left, #1a1e36, #0d0e15 70%);
+      color: #ffffff;
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      padding: 24px 16px;
+      overflow-x: hidden;
+    }
+
+    .glow-sphere {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.45;
+    }
+    .glow-1 {
+      width: 260px;
+      height: 260px;
+      background: #ff4b72;
+      top: 5%;
+      left: 10%;
+    }
+    .glow-2 {
+      width: 240px;
+      height: 240px;
+      background: #7928ca;
+      bottom: 5%;
+      right: 10%;
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 400px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-radius: 28px;
+      padding: 28px 20px 24px 20px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .heart-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255, 75, 114, 0.15);
+      border: 1px solid rgba(255, 75, 114, 0.3);
+      color: #ff4b72;
+      font-size: 22px;
+      margin-bottom: 12px;
+      animation: heartbeat 2s infinite ease-in-out;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
+    .title {
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+      background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.55);
+      font-weight: 400;
+      margin-bottom: 20px;
+    }
+
+    .slider-container {
+      position: relative;
+      width: 100%;
+      height: 250px;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      background: rgba(0,0,0,0.2);
+    }
+
+    .slider-track {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .slide {
+      min-width: 100%;
+      height: 100%;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 34px;
+      height: 34px;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      z-index: 2;
+    }
+    .btn-prev { left: 8px; }
+    .btn-next { right: 8px; }
+
+    .slider-dots {
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      z-index: 2;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .dot.active {
+      width: 18px;
+      border-radius: 10px;
+      background: #ff4b72;
+    }
+
+    .counter-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .unit-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 12px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .unit-value {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: #ffffff;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.1;
+      margin-bottom: 3px;
+    }
+
+    .unit-label {
+      font-size: 0.6rem;
+      color: rgba(255, 255, 255, 0.45);
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      font-weight: 600;
+    }
+
+    .footer-quote {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.6);
+      font-style: italic;
+      line-height: 1.4;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glow-sphere glow-1"></div>
+  <div class="glow-sphere glow-2"></div>
+
+  <div class="card">
+    <div class="heart-icon">♥</div>
+    <h1 class="title">Мы вместе</h1>
+    <p class="subtitle">Счастливы каждую секунду</p>
+
+    <!-- Слайдер -->
+    <div class="slider-container" id="slider">
+      <div class="slider-track" id="slider-track">
+        <div class="slide"><div style="display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,0.4);font-size:12px;">Загрузка фото...</div></div>
+      </div>
+      <button class="slider-btn btn-prev" id="btn-prev">❮</button>
+      <button class="slider-btn btn-next" id="btn-next">❯</button>
+      <div class="slider-dots" id="slider-dots"></div>
+    </div>
+
+    <!-- Счетчик времени -->
+    <div class="counter-grid">
+      <div class="unit-box">
+        <span class="unit-value" id="days">0</span>
+        <span class="unit-label" id="days-label">Дней</span>
+      </div>
+      <div class="unit-box">
+        <span class="unit-value" id="hours">00</span>
+        <span class="unit-label" id="hours-label">Часов</span>
+      </div>
+      <div class="unit-box">
+        <span class="unit-value" id="mins">00</span>
+        <span class="unit-label" id="mins-label">Минут</span>
+      </div>
+      <div class="unit-box">
+        <span class="unit-value" id="secs" style="color: #ff6b8b;">00</span>
+        <span class="unit-label">Секунд</span>
+      </div>
+    </div>
+
+    <p class="footer-quote">«Лучшее время — время, проведённое с тобой»</p>
+  </div>
+
+  <script>
+    // ==========================================
+    // ⚙️ НАСТРОЙКИ (ЗАМЕНИ НА СВОИ ДАННЫЕ)
+    // ==========================================
+    const GITHUB_USERNAME = 'Toxicaholic';
+    const GITHUB_REPO = 'our-story'; 
+
+    // Задавайте дату в формате ДД.ММ.ГГГГ (можно с часами и минутами: '23.06.2026 18:00')
+    const DATE_STRING = '01.07.2026'; 
+
+    // Преобразование строки ДД.ММ.ГГГГ в дату
+    function parseDate(str) {
+      const [datePart, timePart = '00:00:00'] = str.trim().split(' ');
+      const [day, month, year] = datePart.split('.').map(Number);
+      const [hours = 0, mins = 0, secs = 0] = timePart.split(':').map(Number);
+      return new Date(year, month - 1, day, hours, mins, secs);
+    }
+
+    const START_DATE = parseDate(DATE_STRING);
+    // ==========================================
+    // Счётчик времени
+    function declension(num, words) {
+      const cases = [2, 0, 1, 1, 1, 2];
+      return words[(num % 100 > 4 && num % 100 < 20) ? 2 : cases[(num % 10 < 5) ? num % 10 : 5]];
+    }
+
+    function updateCounter() {
+      const now = new Date();
+      const diff = Math.max(0, now - START_DATE);
+
+      const sTot = Math.floor(diff / 1000);
+      const mTot = Math.floor(sTot / 60);
+      const hTot = Math.floor(mTot / 60);
+      
+      const d = Math.floor(hTot / 24);
+      const h = hTot % 24;
+      const m = mTot % 60;
+      const s = sTot % 60;
+
+      document.getElementById('days').textContent = d;
+      document.getElementById('hours').textContent = String(h).padStart(2, '0');
+      document.getElementById('mins').textContent = String(m).padStart(2, '0');
+      document.getElementById('secs').textContent = String(s).padStart(2, '0');
+
+      document.getElementById('days-label').textContent = declension(d, ['День', 'Дня', 'Дней']);
+      document.getElementById('hours-label').textContent = declension(h, ['Час', 'Часа', 'Часов']);
+      document.getElementById('mins-label').textContent = declension(m, ['Минута', 'Минуты', 'Минут']);
+    }
+    updateCounter();
+    setInterval(updateCounter, 1000);
+
+    // Автозагрузка фото через GitHub API
+    let currentIndex = 0;
+    let autoSlideTimer;
+    let totalSlides = 0;
+
+    async function loadPhotos() {
+      const track = document.getElementById('slider-track');
+      const dotsContainer = document.getElementById('slider-dots');
+
+      try {
+        const res = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/photos`);
+        const files = await res.json();
+        
+        const images = Array.isArray(files) 
+          ? files.filter(f => /\.(jpe?g|png|webp|gif)$/i.test(f.name)) 
+          : [];
+
+        if (images.length === 0) {
+          track.innerHTML = '<div class="slide"><div style="display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,0.4);font-size:12px;">Добавьте фото в папку photos</div></div>';
+          return;
+        }
+
+        track.innerHTML = '';
+        dotsContainer.innerHTML = '';
+        totalSlides = images.length;
+
+        images.forEach((file, i) => {
+          const slide = document.createElement('div');
+          slide.className = 'slide';
+          slide.innerHTML = `<img src="${file.download_url}" alt="Фото ${i + 1}">`;
+          track.appendChild(slide);
+
+          const dot = document.createElement('div');
+          dot.className = 'dot' + (i === 0 ? ' active' : '');
+          dot.addEventListener('click', () => { goToSlide(i); resetAutoSlide(); });
+          dotsContainer.appendChild(dot);
+        });
+
+        initSlider();
+      } catch (e) {
+        console.error('Ошибка загрузки фото:', e);
+      }
+    }
+
+    function initSlider() {
+      const track = document.getElementById('slider-track');
+      const dots = document.querySelectorAll('.dot');
+
+      window.goToSlide = function(index) {
+        currentIndex = (index + totalSlides) % totalSlides;
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
+      };
+
+      document.getElementById('btn-next').onclick = () => { goToSlide(currentIndex + 1); resetAutoSlide(); };
+      document.getElementById('btn-prev').onclick = () => { goToSlide(currentIndex - 1); resetAutoSlide(); };
+
+      function startAutoSlide() {
+        autoSlideTimer = setInterval(() => goToSlide(currentIndex + 1), 4000);
+      }
+      window.resetAutoSlide = function() {
+        clearInterval(autoSlideTimer);
+        startAutoSlide();
+      };
+      startAutoSlide();
+
+      // Свайпы на мобильных
+      let touchStartX = 0;
+      const slider = document.getElementById('slider');
+      slider.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX, { passive: true });
+      slider.addEventListener('touchend', e => {
+        const diff = touchStartX - e.changedTouches[0].screenX;
+        if (diff > 40) { goToSlide(currentIndex + 1); resetAutoSlide(); }
+        else if (diff < -40) { goToSlide(currentIndex - 1); resetAutoSlide(); }
+      }, { passive: true });
+    }
+
+    loadPhotos();
+  </script>
+</body>
+</html>
