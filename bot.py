@@ -40,9 +40,9 @@ async def upload_to_github(image_bytes: bytes, file_name: str) -> bool:
 @dp.message(CommandStart())
 async def handle_start(message: Message):
     if ALLOWED_USERS and str(message.from_user.id) not in ALLOWED_USERS:
-        await message.reply("Ой, доступ закрыт 💔")
+        await message.reply("Ой, доступ закрыт ")
         return
-    await message.reply("Привет, любимые! 💕\nОтправьте мне фоточку, и я с любовью добавлю её в наш слайдер воспоминаний! 📸✨")
+    await message.reply("Привет, любимые! 💕\nОтправьте мне фоточку, и я добавлю её в наш слайдер воспоминаний! 📸")
 
 @dp.message(F.photo)
 async def handle_photo(message: Message):
@@ -50,7 +50,7 @@ async def handle_photo(message: Message):
         await message.reply("Ой, доступ закрыт 💔")
         return
 
-    msg = await message.reply("Бережно сохраняю наше воспоминание... ⏳💖")
+    msg = await message.reply("Бережно сохраняю наше воспоминание... ⏳")
     
     photo = message.photo[-1]
     file = await bot.get_file(photo.file_id)
@@ -62,14 +62,14 @@ async def handle_photo(message: Message):
 
     success = await upload_to_github(image_bytes, filename)
     if success:
-        await msg.edit_text("Ура! Фоточка успешно добавлена в наш альбомчик! 💞🥰")
+        await msg.edit_text("Ура! Фоточка успешно добавлена в наш альбомчик! 💞")
     else:
-        await msg.edit_text("Ой, что-то пошло не так при отправке на GitHub... 🥺💔 Попробуй ещё разок!")
+        await msg.edit_text("Ой, что-то пошло не так при отправке на GitHub...  Попробуй ещё разок!")
 
 @dp.message()
 async def fallback(message: Message):
     if ALLOWED_USERS and str(message.from_user.id) not in ALLOWED_USERS:
-        await message.reply("Ой, доступ закрыт 💔")
+        await message.reply("Ой, доступ закрыт ")
         return
     await message.reply("Жду от тебя красивую фотографию! 💌 Отправь мне фоточку, и она появится на нашем сайте 💕")
 
