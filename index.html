@@ -94,12 +94,13 @@
       margin-bottom: 22px;
     }
 
-    /* Окно для фото */
+    /* Адаптивное окно слайдера с плавной анимацией изменения высоты */
     .slider-wrapper {
       position: relative;
       width: 100%;
       max-width: 510px;
-      height: 450px;
+      min-height: 280px;
+      height: 420px; /* Начальное значение до загрузки */
       margin: 0 auto 24px auto;
       border-radius: 24px;
       overflow: hidden;
@@ -108,15 +109,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: height 0.45s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
     .slider-img {
       position: absolute;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain; /* Отображает фото целиком без обрезки */
       opacity: 0;
-      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .slider-img.active {
@@ -264,7 +266,6 @@
           </linearGradient>
         </defs>
 
-        <!-- Внутренняя часть маски -->
         <g clip-path="url(#heart-clip)">
           <rect width="100" height="100" fill="url(#spider-red-grad)" />
 
@@ -289,7 +290,7 @@
 
     <h1>Наша история</h1>
 
-    <!-- Окно для фото -->
+    <!-- Адаптивное окно слайдера -->
     <div class="slider-wrapper" id="slider">
       <div class="placeholder-text" id="placeholder">Загрузка воспоминаний... ✨</div>
     </div>
@@ -376,6 +377,21 @@
     setInterval(updateTimer, 1000);
     updateTimer();
 
+    // Функция подстройки высоты контейнера под пропорции картинки
+    function adjustFrameToImage(imgElement) {
+      const slider = document.getElementById("slider");
+      if (!imgElement || !imgElement.naturalWidth || !imgElement.naturalHeight) return;
+
+      const containerWidth = slider.clientWidth || 500;
+      const aspectRatio = imgElement.naturalHeight / imgElement.naturalWidth;
+      
+      // Вычисляем оптимальную высоту, ограничивая её диапазоном от 280px до 540px
+      let targetHeight = Math.round(containerWidth * aspectRatio);
+      targetHeight = Math.max(280, Math.min(540, targetHeight));
+      
+      slider.style.height = `${targetHeight}px`;
+    }
+
     // Автоматическая загрузка фото из репозитория
     async function loadPhotos() {
       const slider = document.getElementById("slider");
@@ -395,21 +411,34 @@
 
         placeholder.remove();
 
+        const imageElements = [];
+
         photos.forEach((photo, idx) => {
           const img = document.createElement("img");
           img.src = photo.download_url;
           img.className = `slider-img ${idx === 0 ? 'active' : ''}`;
+          
+          img.onload = () => {
+            if (idx === 0) {
+              adjustFrameToImage(img);
+            }
+          };
+
           slider.appendChild(img);
+          imageElements.push(img);
         });
 
-        if (photos.length > 1) {
+        // Автолистание слайдов и плавная подстройка рамки под каждый кадр
+        if (imageElements.length > 1) {
           let currentIndex = 0;
-          const images = slider.querySelectorAll(".slider-img");
           
           setInterval(() => {
-            images[currentIndex].classList.remove("active");
-            currentIndex = (currentIndex + 1) % images.length;
-            images[currentIndex].classList.add("active");
+            imageElements[currentIndex].classList.remove("active");
+            currentIndex = (currentIndex + 1) % imageElements.length;
+            const nextImg = imageElements[currentIndex];
+            nextImg.classList.add("active");
+            
+            adjustFrameToImage(nextImg);
           }, 4000);
         }
 
@@ -419,6 +448,12 @@
     }
 
     loadPhotos();
+
+    // Пересчёт высоты рамки при повороте экрана смартфона
+    window.addEventListener("resize", () => {
+      const activeImg = document.querySelector(".slider-img.active");
+      if (activeImg) adjustFrameToImage(activeImg);
+    });
 
     // ==========================================
     // 🎨 ОГРОМНЫЕ ЗАКРУГЛЕННЫЕ МЯТНЫЕ И ЧЁРНЫЕ ЛИНИИ
