@@ -97,22 +97,22 @@ def get_photos_word(count: int) -> str:
 @dp.message(CommandStart())
 async def handle_start(message: Message):
     if ALLOWED_USERS and str(message.from_user.id) not in ALLOWED_USERS:
-        await message.reply("Ой, доступ закрыт 💔")
+        await message.reply("Ой, доступ закрыт")
         return
-    await message.reply("Привет, любимые! 💕\nОтправьте мне одно или сразу пачку фото, и я с любовью добавлю их в наш альбом! 📸✨")
+    await message.reply("Привет, любимые! 💕\nОтправьте мне одно или сразу пачку фото, и я с любовью добавлю их в наш альбом! 📸")
 
 
 @dp.message(F.photo)
 async def handle_photo_or_album(message: Message, album: List[Message] = None):
     if ALLOWED_USERS and str(message.from_user.id) not in ALLOWED_USERS:
-        await message.reply("Ой, доступ закрыт 💔")
+        await message.reply("Ой, доступ закрыт ")
         return
 
     # Если отправлен альбом нескольких фото — берем список, иначе одно текущее сообщение
     messages_to_process = album if album else [message]
     total_count = len(messages_to_process)
 
-    msg = await message.reply(f"Бережно сохраняю {get_photos_word(total_count)}... ⏳💖")
+    msg = await message.reply(f"Бережно сохраняю {get_photos_word(total_count)}... ⏳")
 
     successful_uploads = 0
 
@@ -136,13 +136,13 @@ async def handle_photo_or_album(message: Message, album: List[Message] = None):
 
     if successful_uploads == total_count:
         if total_count == 1:
-            await msg.edit_text("Ура! Фоточка успешно добавлена в наш альбомчик! 💞🥰")
+            await msg.edit_text("Ура! Фоточка успешно добавлена в наш альбомчик! 💞")
         else:
-            await msg.edit_text(f"Ура! Все {successful_uploads} фото успешно добавлены в наш альбомчик! 💞🥰")
+            await msg.edit_text(f"Ура! Все {successful_uploads} фото успешно добавлены в наш альбомчик! 💞")
     elif successful_uploads > 0:
-        await msg.edit_text(f"Загружено {successful_uploads} из {total_count} фоточек! Часть не прошла, попробуй дослать остаток 🥺💕")
+        await msg.edit_text(f"Загружено {successful_uploads} из {total_count} фоточек! Часть не прошла, попробуй дослать остаток 💕")
     else:
-        await msg.edit_text("Ой, не получилось сохранить фото... 🥺💔 Попробуй ещё разок!")
+        await msg.edit_text("Ой, не получилось сохранить фото... 💔 Попробуй ещё разок!")
 
 
 @dp.message()
