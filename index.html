@@ -135,7 +135,7 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 12px;
-      margin-bottom: 26px;
+      margin-bottom: 24px;
     }
 
     .timer-item {
@@ -164,6 +164,57 @@
       color: #495057;
       margin-top: 4px;
       font-weight: 700;
+    }
+
+    /* Кнопка ссылки на бота */
+    .bot-link-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      padding: 12px 26px;
+      background: #ffffff;
+      color: var(--black);
+      border: 2.5px solid var(--black);
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      box-shadow: 3px 4px 0px var(--black);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+    }
+
+    .bot-link-btn:hover {
+      background-color: #f1fdf9;
+      transform: translate(-1px, -2px);
+      box-shadow: 4px 6px 0px var(--black);
+    }
+
+    .bot-link-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 2px 0px var(--black);
+    }
+
+    .bot-icon-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      background: var(--mint);
+      border: 1.5px solid var(--black);
+      border-radius: 50%;
+      font-size: 12px;
+    }
+
+    /* Контейнер под кнопки и статус */
+    .footer-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
     }
 
     /* Стильная плашка "Это лишь начало" */
@@ -263,8 +314,16 @@
       </div>
     </div>
 
-    <!-- Фраза "Это лишь начало" -->
-    <div class="lead-phrase">Это лишь начало</div>
+    <div class="footer-actions">
+      <!-- Кнопка перехода в Telegram-бота -->
+      <a href="https://t.me/uploudvikatoliaphotobot" target="_blank" class="bot-link-btn">
+        <span class="bot-icon-badge">📸</span>
+        <span>Добавить фото в альбом</span>
+      </a>
+
+      <!-- Фраза "Это лишь начало" -->
+      <div class="lead-phrase">Это лишь начало</div>
+    </div>
 
   </div>
 
@@ -399,7 +458,6 @@
         this.color = strokeColors[Math.floor(Math.random() * strokeColors.length)];
         this.history = [];
         this.maxHistory = 45 + Math.floor(Math.random() * 30);
-        // Очень жирная толщина: от 28px до 48px
         this.lineWidth = 28 + Math.random() * 20;
       }
 
@@ -436,17 +494,15 @@
 
         ctx.strokeStyle = this.color;
         ctx.lineWidth = this.lineWidth;
-        ctx.lineCap = "round";   // Скругленные массивные концы
+        ctx.lineCap = "round";
         ctx.lineJoin = "round";
         ctx.stroke();
       }
     }
 
-    // 10 массивных линий, чтобы не перегружать экран, но заполнить пространство
     const ribbons = Array.from({ length: 10 }, () => new GiantRibbon());
 
     function animate() {
-      // Плавный след
       ctx.fillStyle = "rgba(248, 249, 250, 0.32)";
       ctx.fillRect(0, 0, width, height);
 
