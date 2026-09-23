@@ -2,271 +2,282 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Наша история ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Наша история // Spider-Verse</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,500;0,700;0,900;1,700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --neon-lime: #39ff14;
+      --neon-yellow: #ccff00;
+      --electric-white: #ffffff;
+      --spider-red: #ff1744;
+      --dark-bg: #090a0f;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      -webkit-tap-highlight-color: transparent;
     }
 
     body {
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(circle at top right, #2a1b3d, #0d0e15 60%),
-                  radial-gradient(circle at bottom left, #1a1e36, #0d0e15 70%);
+      background-color: var(--dark-bg);
+      font-family: 'Montserrat', sans-serif;
       color: #ffffff;
-      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       padding: 24px 16px;
       overflow-x: hidden;
+      position: relative;
     }
 
-    .glow-sphere {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
+    /* Фоновый холст с хаотично закручивающимися неоновыми линиями */
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       z-index: 0;
       pointer-events: none;
-      opacity: 0.45;
-    }
-    .glow-1 {
-      width: 260px;
-      height: 260px;
-      background: #ff4b72;
-      top: 5%;
-      left: 10%;
-    }
-    .glow-2 {
-      width: 240px;
-      height: 240px;
-      background: #7928ca;
-      bottom: 5%;
-      right: 10%;
     }
 
+    /* Главная карточка в минималистичном стиле со стеклянным эффектом */
     .card {
       position: relative;
       z-index: 1;
-      width: 100%;
-      max-width: 400px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(12, 14, 20, 0.78);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
-      border-radius: 28px;
-      padding: 28px 20px 24px 20px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 32px;
+      padding: 34px 24px;
+      width: 100%;
+      max-width: 560px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7),
+                  0 0 40px rgba(57, 255, 20, 0.08);
       text-align: center;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
     }
 
-    .heart-icon {
-      display: inline-flex;
+    /* Бьющееся сердечко с Человеком-пауком */
+    .spidey-heart-container {
+      margin: 0 auto 18px;
+      width: 86px;
+      height: 86px;
+      position: relative;
+      display: flex;
       align-items: center;
       justify-content: center;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: rgba(255, 75, 114, 0.15);
-      border: 1px solid rgba(255, 75, 114, 0.3);
-      color: #ff4b72;
-      font-size: 22px;
-      margin-bottom: 12px;
-      animation: heartbeat 2s infinite ease-in-out;
+      cursor: pointer;
+    }
+
+    .spidey-heart {
+      width: 76px;
+      height: 76px;
+      animation: heartbeat 1.35s infinite ease-in-out;
+      filter: drop-shadow(0 0 16px rgba(255, 23, 68, 0.75))
+              drop-shadow(0 0 25px rgba(204, 255, 0, 0.35));
     }
 
     @keyframes heartbeat {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.08); }
+      0% { transform: scale(1); }
+      14% { transform: scale(1.18) rotate(-2deg); }
+      28% { transform: scale(1); }
+      42% { transform: scale(1.12) rotate(2deg); }
+      70% { transform: scale(1); }
     }
 
-    .title {
-      font-size: 1.45rem;
-      font-weight: 700;
+    h1 {
+      font-size: 26px;
+      font-weight: 900;
       letter-spacing: -0.5px;
-      margin-bottom: 4px;
-      background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #ffffff, var(--neon-yellow), var(--neon-lime));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      margin-bottom: 22px;
     }
 
-    .subtitle {
-      font-size: 0.8rem;
-      color: rgba(255, 255, 255, 0.55);
-      font-weight: 400;
-      margin-bottom: 20px;
-    }
-
-    .slider-container {
+    /* Большое окно для фото (увеличенное в 1.5 раза) */
+    .slider-wrapper {
       position: relative;
       width: 100%;
-      height: 250px;
-      border-radius: 20px;
+      max-width: 510px;
+      height: 450px;
+      margin: 0 auto 24px auto;
+      border-radius: 24px;
       overflow: hidden;
-      margin-bottom: 22px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-      background: rgba(0,0,0,0.2);
-    }
-
-    .slider-track {
+      background: rgba(0, 0, 0, 0.65);
+      border: 1px solid rgba(204, 255, 0, 0.25);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6),
+                  inset 0 0 20px rgba(57, 255, 20, 0.05);
       display: flex;
-      width: 100%;
-      height: 100%;
-      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      align-items: center;
+      justify-content: center;
     }
 
-    .slide {
-      min-width: 100%;
-      height: 100%;
-    }
-
-    .slide img {
+    .slider-img {
+      position: absolute;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: block;
+      opacity: 0;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .slider-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 34px;
-      height: 34px;
-      background: rgba(0, 0, 0, 0.45);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 50%;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
+    .slider-img.active {
+      opacity: 1;
+    }
+
+    .placeholder-text {
+      color: rgba(255, 255, 255, 0.45);
       font-size: 14px;
-      z-index: 2;
-    }
-    .btn-prev { left: 8px; }
-    .btn-next { right: 8px; }
-
-    .slider-dots {
-      position: absolute;
-      bottom: 10px;
-      left: 0;
-      right: 0;
-      display: flex;
-      justify-content: center;
-      gap: 6px;
-      z-index: 2;
+      padding: 20px;
+      font-weight: 500;
     }
 
-    .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.4);
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    .dot.active {
-      width: 18px;
-      border-radius: 10px;
-      background: #ff4b72;
-    }
-
-    .counter-grid {
+    /* Сетка счетчика */
+    .timer-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin-bottom: 22px;
+      gap: 10px;
+      margin-bottom: 24px;
     }
 
-    .unit-box {
-      background: rgba(255, 255, 255, 0.03);
+    .timer-item {
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
+      border-radius: 18px;
       padding: 12px 4px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      transition: border-color 0.3s ease;
     }
 
-    .unit-value {
-      font-size: 1.45rem;
-      font-weight: 700;
-      color: #ffffff;
-      font-variant-numeric: tabular-nums;
-      line-height: 1.1;
-      margin-bottom: 3px;
+    .timer-item:hover {
+      border-color: var(--neon-lime);
     }
 
-    .unit-label {
-      font-size: 0.6rem;
-      color: rgba(255, 255, 255, 0.45);
+    .timer-val {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--neon-yellow);
+      text-shadow: 0 0 14px rgba(204, 255, 0, 0.3);
+    }
+
+    .timer-label {
+      font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 0.7px;
+      letter-spacing: 1px;
+      color: rgba(255, 255, 255, 0.6);
+      margin-top: 5px;
       font-weight: 600;
     }
 
-    .footer-quote {
-      font-size: 0.8rem;
-      color: rgba(255, 255, 255, 0.6);
-      font-style: italic;
-      line-height: 1.4;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      padding-top: 16px;
+    /* Фраза "Это лишь начало" */
+    .lead-phrase {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--neon-lime);
+      padding: 8px 18px;
+      border-radius: 999px;
+      background: rgba(57, 255, 20, 0.08);
+      border: 1px solid rgba(57, 255, 20, 0.22);
+      box-shadow: 0 0 15px rgba(57, 255, 20, 0.15);
+    }
+
+    .lead-phrase::before,
+    .lead-phrase::after {
+      content: "";
+      width: 6px;
+      height: 6px;
+      background: var(--neon-yellow);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--neon-yellow);
     }
   </style>
 </head>
 <body>
 
-  <div class="glow-sphere glow-1"></div>
-  <div class="glow-sphere glow-2"></div>
+  <!-- Фон с хаотично закручивающимися неоновыми линиями -->
+  <canvas id="bg-canvas"></canvas>
 
   <div class="card">
-    <div class="heart-icon">♥</div>
-    <h1 class="title">Мы вместе</h1>
-    <p class="subtitle">Счастливы каждую секунду</p>
+    
+    <!-- Сердечко с Человеком-пауком -->
+    <div class="spidey-heart-container">
+      <svg class="spidey-heart" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <clipPath id="heart-clip">
+            <path d="M50 88.5 C25 71 5 53 5 31.5 C5 15.5 17.5 5 32 5 C40 5 46.5 9 50 15 C53.5 9 60 5 68 5 C82.5 5 95 15.5 95 31.5 C95 53 75 71 50 88.5 Z" />
+          </clipPath>
+          <radialGradient id="spider-glow" cx="50%" cy="40%" r="60%">
+            <stop offset="0%" stop-color="#ff2a55" />
+            <stop offset="80%" stop-color="#b30026" />
+            <stop offset="100%" stop-color="#6b0014" />
+          </radialGradient>
+        </defs>
 
-    <!-- Слайдер -->
-    <div class="slider-container" id="slider">
-      <div class="slider-track" id="slider-track">
-        <div class="slide"><div style="display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,0.4);font-size:12px;">Загрузка фото...</div></div>
-      </div>
-      <button class="slider-btn btn-prev" id="btn-prev">❮</button>
-      <button class="slider-btn btn-next" id="btn-next">❯</button>
-      <div class="slider-dots" id="slider-dots"></div>
+        <!-- Форма сердца с маской -->
+        <g clip-path="url(#heart-clip)">
+          <rect width="100" height="100" fill="url(#spider-glow)" />
+
+          <!-- Паутина -->
+          <path d="M50 10 L50 85 M10 40 L90 40 M20 20 L80 80 M20 80 L80 20" stroke="#000000" stroke-width="1.2" opacity="0.4" />
+          <ellipse cx="50" cy="45" rx="16" ry="14" fill="none" stroke="#000000" stroke-width="1.2" opacity="0.35" />
+          <ellipse cx="50" cy="45" rx="30" ry="26" fill="none" stroke="#000000" stroke-width="1.2" opacity="0.35" />
+
+          <!-- Линзы глаз Человека-паука -->
+          <path d="M22 34 Q32 32 44 45 Q36 53 25 47 Q19 41 22 34 Z" fill="#05070a" />
+          <path d="M25 36 Q33 34 42 44 Q35 50 27 46 Q22 41 25 36 Z" fill="#ffffff" />
+          
+          <path d="M78 34 Q68 32 56 45 Q64 53 75 47 Q81 41 78 34 Z" fill="#05070a" />
+          <path d="M75 36 Q67 34 58 44 Q65 50 73 46 Q78 41 75 36 Z" fill="#ffffff" />
+        </g>
+
+        <!-- Неоновый контур -->
+        <path d="M50 88.5 C25 71 5 53 5 31.5 C5 15.5 17.5 5 32 5 C40 5 46.5 9 50 15 C53.5 9 60 5 68 5 C82.5 5 95 15.5 95 31.5 C95 53 75 71 50 88.5 Z" 
+              fill="none" stroke="var(--neon-yellow)" stroke-width="2.5" opacity="0.85" />
+      </svg>
     </div>
 
-    <!-- Счетчик времени -->
-    <div class="counter-grid">
-      <div class="unit-box">
-        <span class="unit-value" id="days">0</span>
-        <span class="unit-label" id="days-label">Дней</span>
+    <h1>Наша история</h1>
+
+    <!-- Большое окно для фото -->
+    <div class="slider-wrapper" id="slider">
+      <div class="placeholder-text" id="placeholder">Загрузка фоточек... ✨</div>
+    </div>
+
+    <!-- Таймер времени вместе -->
+    <div class="timer-grid">
+      <div class="timer-item">
+        <div class="timer-val" id="days">0</div>
+        <div class="timer-label" id="days-label">дней</div>
       </div>
-      <div class="unit-box">
-        <span class="unit-value" id="hours">00</span>
-        <span class="unit-label" id="hours-label">Часов</span>
+      <div class="timer-item">
+        <div class="timer-val" id="hours">0</div>
+        <div class="timer-label" id="hours-label">часов</div>
       </div>
-      <div class="unit-box">
-        <span class="unit-value" id="mins">00</span>
-        <span class="unit-label" id="mins-label">Минут</span>
+      <div class="timer-item">
+        <div class="timer-val" id="mins">0</div>
+        <div class="timer-label" id="mins-label">минут</div>
       </div>
-      <div class="unit-box">
-        <span class="unit-value" id="secs" style="color: #ff6b8b;">00</span>
-        <span class="unit-label">Секунд</span>
+      <div class="timer-item">
+        <div class="timer-val" id="secs">0</div>
+        <div class="timer-label" id="secs-label">секунд</div>
       </div>
     </div>
 
-    <p class="footer-quote">«Лучшее время — время, проведённое с тобой»</p>
+    <!-- Органичная фраза -->
+    <div class="lead-phrase">Это лишь начало</div>
+
   </div>
 
   <script>
@@ -295,109 +306,168 @@
       return words[(num % 100 > 4 && num % 100 < 20) ? 2 : cases[(num % 10 < 5) ? num % 10 : 5]];
     }
 
-    function updateCounter() {
+    function updateTimer() {
       const now = new Date();
       const diff = Math.max(0, now - START_DATE);
 
-      const sTot = Math.floor(diff / 1000);
-      const mTot = Math.floor(sTot / 60);
-      const hTot = Math.floor(mTot / 60);
-      
-      const d = Math.floor(hTot / 24);
-      const h = hTot % 24;
-      const m = mTot % 60;
-      const s = sTot % 60;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const mins = Math.floor((diff / 1000 / 60) % 60);
+      const secs = Math.floor((diff / 1000) % 60);
 
-      document.getElementById('days').textContent = d;
-      document.getElementById('hours').textContent = String(h).padStart(2, '0');
-      document.getElementById('mins').textContent = String(m).padStart(2, '0');
-      document.getElementById('secs').textContent = String(s).padStart(2, '0');
+      document.getElementById("days").innerText = days;
+      document.getElementById("hours").innerText = hours;
+      document.getElementById("mins").innerText = mins;
+      document.getElementById("secs").innerText = secs;
 
-      document.getElementById('days-label').textContent = declension(d, ['День', 'Дня', 'Дней']);
-      document.getElementById('hours-label').textContent = declension(h, ['Час', 'Часа', 'Часов']);
-      document.getElementById('mins-label').textContent = declension(m, ['Минута', 'Минуты', 'Минут']);
+      document.getElementById("days-label").innerText = declension(days, ["день", "дня", "дней"]);
+      document.getElementById("hours-label").innerText = declension(hours, ["час", "часа", "часов"]);
+      document.getElementById("mins-label").innerText = declension(mins, ["минута", "минуты", "минут"]);
+      document.getElementById("secs-label").innerText = declension(secs, ["секунда", "секунды", "секунд"]);
     }
-    updateCounter();
-    setInterval(updateCounter, 1000);
 
-    // Автозагрузка фото через GitHub API
-    let currentIndex = 0;
-    let autoSlideTimer;
-    let totalSlides = 0;
+    setInterval(updateTimer, 1000);
+    updateTimer();
 
+    // Автоматическая загрузка фото из папки photos репозитория
     async function loadPhotos() {
-      const track = document.getElementById('slider-track');
-      const dotsContainer = document.getElementById('slider-dots');
-
+      const slider = document.getElementById("slider");
+      const placeholder = document.getElementById("placeholder");
+      
       try {
         const res = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/photos`);
-        const files = await res.json();
+        if (!res.ok) throw new Error("Папка photos пока пуста");
         
-        const images = Array.isArray(files) 
-          ? files.filter(f => /\.(jpe?g|png|webp|gif)$/i.test(f.name)) 
-          : [];
+        const files = await res.json();
+        const photos = files.filter(f => f.name.match(/\.(jpg|jpeg|png|webp|gif)$/i));
 
-        if (images.length === 0) {
-          track.innerHTML = '<div class="slide"><div style="display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,0.4);font-size:12px;">Добавьте фото в папку photos</div></div>';
+        if (photos.length === 0) {
+          placeholder.innerText = "Отправьте фото боту, чтобы они появились здесь ✨";
           return;
         }
 
-        track.innerHTML = '';
-        dotsContainer.innerHTML = '';
-        totalSlides = images.length;
+        placeholder.remove();
 
-        images.forEach((file, i) => {
-          const slide = document.createElement('div');
-          slide.className = 'slide';
-          slide.innerHTML = `<img src="${file.download_url}" alt="Фото ${i + 1}">`;
-          track.appendChild(slide);
-
-          const dot = document.createElement('div');
-          dot.className = 'dot' + (i === 0 ? ' active' : '');
-          dot.addEventListener('click', () => { goToSlide(i); resetAutoSlide(); });
-          dotsContainer.appendChild(dot);
+        photos.forEach((photo, idx) => {
+          const img = document.createElement("img");
+          img.src = photo.download_url;
+          img.className = `slider-img ${idx === 0 ? 'active' : ''}`;
+          slider.appendChild(img);
         });
 
-        initSlider();
+        if (photos.length > 1) {
+          let currentIndex = 0;
+          const images = slider.querySelectorAll(".slider-img");
+          
+          setInterval(() => {
+            images[currentIndex].classList.remove("active");
+            currentIndex = (currentIndex + 1) % images.length;
+            images[currentIndex].classList.add("active");
+          }, 4000);
+        }
+
       } catch (e) {
-        console.error('Ошибка загрузки фото:', e);
+        placeholder.innerText = "Жду фотографии из Telegram-бота 💌";
       }
-    }
-
-    function initSlider() {
-      const track = document.getElementById('slider-track');
-      const dots = document.querySelectorAll('.dot');
-
-      window.goToSlide = function(index) {
-        currentIndex = (index + totalSlides) % totalSlides;
-        track.style.transform = `translateX(-${currentIndex * 100}%)`;
-        dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
-      };
-
-      document.getElementById('btn-next').onclick = () => { goToSlide(currentIndex + 1); resetAutoSlide(); };
-      document.getElementById('btn-prev').onclick = () => { goToSlide(currentIndex - 1); resetAutoSlide(); };
-
-      function startAutoSlide() {
-        autoSlideTimer = setInterval(() => goToSlide(currentIndex + 1), 4000);
-      }
-      window.resetAutoSlide = function() {
-        clearInterval(autoSlideTimer);
-        startAutoSlide();
-      };
-      startAutoSlide();
-
-      // Свайпы на мобильных
-      let touchStartX = 0;
-      const slider = document.getElementById('slider');
-      slider.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX, { passive: true });
-      slider.addEventListener('touchend', e => {
-        const diff = touchStartX - e.changedTouches[0].screenX;
-        if (diff > 40) { goToSlide(currentIndex + 1); resetAutoSlide(); }
-        else if (diff < -40) { goToSlide(currentIndex - 1); resetAutoSlide(); }
-      }, { passive: true });
     }
 
     loadPhotos();
+
+    // ==========================================
+    // 🎨 ГЕНЕРАТОР ХАОТИЧНО ЗАКРУЧИВАЮЩИХСЯ ЛИНИЙ
+    // ==========================================
+    const canvas = document.getElementById("bg-canvas");
+    const ctx = canvas.getContext("2d");
+
+    let width, height;
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    const colors = [
+      "rgba(57, 255, 20, 0.45)",   // неоновый лайм
+      "rgba(204, 255, 0, 0.4)",    // неоновый желтый
+      "rgba(255, 255, 255, 0.35)", // белый
+      "rgba(57, 255, 20, 0.2)"
+    ];
+
+    class Ribbon {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.vx = (Math.random() - 0.5) * 1.6;
+        this.vy = (Math.random() - 0.5) * 1.6;
+        this.angle = Math.random() * Math.PI * 2;
+        this.angleSpeed = (Math.random() - 0.5) * 0.05;
+        this.speed = 1.2 + Math.random() * 1.8;
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+        this.history = [];
+        this.maxHistory = 45 + Math.floor(Math.random() * 40);
+        this.lineWidth = 1 + Math.random() * 1.8;
+      }
+
+      update() {
+        this.angle += this.angleSpeed;
+        if (Math.random() < 0.04) {
+          this.angleSpeed = (Math.random() - 0.5) * 0.08;
+        }
+
+        this.x += Math.cos(this.angle) * this.speed + this.vx;
+        this.y += Math.sin(this.angle) * this.speed + this.vy;
+
+        this.history.push({ x: this.x, y: this.y });
+        if (this.history.length > this.maxHistory) {
+          this.history.shift();
+        }
+
+        if (this.x < -100 || this.x > width + 100 || this.y < -100 || this.y > height + 100) {
+          this.reset();
+        }
+      }
+
+      draw() {
+        if (this.history.length < 3) return;
+
+        ctx.beginPath();
+        ctx.moveTo(this.history[0].x, this.history[0].y);
+
+        for (let i = 1; i < this.history.length - 1; i++) {
+          const xc = (this.history[i].x + this.history[i + 1].x) / 2;
+          const yc = (this.history[i].y + this.history[i + 1].y) / 2;
+          ctx.quadraticCurveTo(this.history[i].x, this.history[i].y, xc, yc);
+        }
+
+        ctx.strokeStyle = this.color;
+        ctx.lineWidth = this.lineWidth;
+        ctx.lineCap = "round";
+        ctx.shadowColor = this.color;
+        ctx.shadowBlur = 8;
+        ctx.stroke();
+      }
+    }
+
+    const ribbons = Array.from({ length: 22 }, () => new Ribbon());
+
+    function animate() {
+      ctx.fillStyle = "rgba(9, 10, 15, 0.18)";
+      ctx.fillRect(0, 0, width, height);
+
+      ribbons.forEach(r => {
+        r.update();
+        r.draw();
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
   </script>
 </body>
 </html>
