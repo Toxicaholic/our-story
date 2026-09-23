@@ -3,17 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Наша история // Spider-Verse</title>
+  <title>Наша история ❤️</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,500;0,700;0,900;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --neon-lime: #39ff14;
-      --neon-yellow: #ccff00;
-      --electric-white: #ffffff;
-      --spider-red: #ff1744;
-      --dark-bg: #090a0f;
+      --mint: #00e5a3;
+      --black: #111418;
+      --card-bg: #ffffff;
+      --bg-white: #f8f9fa;
     }
 
     * {
@@ -24,9 +23,9 @@
 
     body {
       min-height: 100vh;
-      background-color: var(--dark-bg);
+      background-color: var(--bg-white);
       font-family: 'Montserrat', sans-serif;
-      color: #ffffff;
+      color: var(--black);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -35,7 +34,7 @@
       position: relative;
     }
 
-    /* Фоновый холст с хаотично закручивающимися неоновыми линиями */
+    /* Фоновый холст с жирными мятными и чёрными линиями */
     #bg-canvas {
       position: fixed;
       top: 0;
@@ -46,41 +45,36 @@
       pointer-events: none;
     }
 
-    /* Главная карточка в минималистичном стиле со стеклянным эффектом */
+    /* Белая карточка с полужирной чёрной окантовкой */
     .card {
       position: relative;
       z-index: 1;
-      background: rgba(12, 14, 20, 0.78);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 32px;
-      padding: 34px 24px;
+      background: var(--card-bg);
+      border: 3px solid var(--black);
+      border-radius: 36px;
+      padding: 36px 26px;
       width: 100%;
       max-width: 560px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7),
-                  0 0 40px rgba(57, 255, 20, 0.08);
+      box-shadow: 10px 14px 0px var(--black);
       text-align: center;
     }
 
-    /* Бьющееся сердечко с Человеком-пауком */
+    /* Сердечко с Человеком-пауком */
     .spidey-heart-container {
-      margin: 0 auto 18px;
-      width: 86px;
-      height: 86px;
+      margin: 0 auto 16px;
+      width: 84px;
+      height: 84px;
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
     }
 
     .spidey-heart {
       width: 76px;
       height: 76px;
       animation: heartbeat 1.35s infinite ease-in-out;
-      filter: drop-shadow(0 0 16px rgba(255, 23, 68, 0.75))
-              drop-shadow(0 0 25px rgba(204, 255, 0, 0.35));
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.15));
     }
 
     @keyframes heartbeat {
@@ -92,17 +86,15 @@
     }
 
     h1 {
-      font-size: 26px;
+      font-size: 28px;
       font-weight: 900;
       letter-spacing: -0.5px;
+      color: var(--black);
       text-transform: uppercase;
-      background: linear-gradient(90deg, #ffffff, var(--neon-yellow), var(--neon-lime));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
       margin-bottom: 22px;
     }
 
-    /* Большое окно для фото (увеличенное в 1.5 раза) */
+    /* Большое окно для фото с чёрной окантовкой */
     .slider-wrapper {
       position: relative;
       width: 100%;
@@ -111,10 +103,8 @@
       margin: 0 auto 24px auto;
       border-radius: 24px;
       overflow: hidden;
-      background: rgba(0, 0, 0, 0.65);
-      border: 1px solid rgba(204, 255, 0, 0.25);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6),
-                  inset 0 0 20px rgba(57, 255, 20, 0.05);
+      background: #f1f3f5;
+      border: 2.5px solid var(--black);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -134,117 +124,115 @@
     }
 
     .placeholder-text {
-      color: rgba(255, 255, 255, 0.45);
-      font-size: 14px;
+      color: #868e96;
+      font-size: 15px;
       padding: 20px;
-      font-weight: 500;
+      font-weight: 600;
     }
 
     /* Сетка счетчика */
     .timer-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-bottom: 24px;
+      gap: 12px;
+      margin-bottom: 26px;
     }
 
     .timer-item {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #ffffff;
+      border: 2px solid var(--black);
       border-radius: 18px;
       padding: 12px 4px;
-      transition: border-color 0.3s ease;
+      box-shadow: 3px 4px 0px var(--black);
+      transition: transform 0.2s ease;
     }
 
     .timer-item:hover {
-      border-color: var(--neon-lime);
+      transform: translateY(-2px);
     }
 
     .timer-val {
       font-size: 26px;
-      font-weight: 800;
-      color: var(--neon-yellow);
-      text-shadow: 0 0 14px rgba(204, 255, 0, 0.3);
+      font-weight: 900;
+      color: var(--black);
     }
 
     .timer-label {
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 1px;
-      color: rgba(255, 255, 255, 0.6);
-      margin-top: 5px;
-      font-weight: 600;
+      color: #495057;
+      margin-top: 4px;
+      font-weight: 700;
     }
 
-    /* Фраза "Это лишь начало" */
+    /* Стильная органичная плашка "Это лишь начало" */
     .lead-phrase {
       display: inline-flex;
       align-items: center;
       gap: 10px;
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 3px;
-      color: var(--neon-lime);
-      padding: 8px 18px;
+      letter-spacing: 2.5px;
+      color: var(--black);
+      padding: 10px 22px;
       border-radius: 999px;
-      background: rgba(57, 255, 20, 0.08);
-      border: 1px solid rgba(57, 255, 20, 0.22);
-      box-shadow: 0 0 15px rgba(57, 255, 20, 0.15);
+      background: #ffffff;
+      border: 2px solid var(--black);
+      box-shadow: 3px 4px 0px var(--black);
     }
 
-    .lead-phrase::before,
-    .lead-phrase::after {
+    .lead-phrase::before {
       content: "";
-      width: 6px;
-      height: 6px;
-      background: var(--neon-yellow);
+      width: 9px;
+      height: 9px;
+      background: var(--mint);
+      border: 2px solid var(--black);
       border-radius: 50%;
-      box-shadow: 0 0 8px var(--neon-yellow);
     }
   </style>
 </head>
 <body>
 
-  <!-- Фон с хаотично закручивающимися неоновыми линиями -->
+  <!-- Фон: перемещающиеся жирные мятные и чёрные линии с закруглениями -->
   <canvas id="bg-canvas"></canvas>
 
   <div class="card">
     
-    <!-- Сердечко с Человеком-пауком -->
+    <!-- Сердце с Человеком-пауком -->
     <div class="spidey-heart-container">
       <svg class="spidey-heart" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <clipPath id="heart-clip">
             <path d="M50 88.5 C25 71 5 53 5 31.5 C5 15.5 17.5 5 32 5 C40 5 46.5 9 50 15 C53.5 9 60 5 68 5 C82.5 5 95 15.5 95 31.5 C95 53 75 71 50 88.5 Z" />
           </clipPath>
-          <radialGradient id="spider-glow" cx="50%" cy="40%" r="60%">
+          <linearGradient id="spider-red-grad" x1="0" y1="0" x2="0" y2="100%">
             <stop offset="0%" stop-color="#ff2a55" />
-            <stop offset="80%" stop-color="#b30026" />
-            <stop offset="100%" stop-color="#6b0014" />
-          </radialGradient>
+            <stop offset="100%" stop-color="#cc0029" />
+          </linearGradient>
         </defs>
 
-        <!-- Форма сердца с маской -->
+        <!-- Внутренняя часть маски -->
         <g clip-path="url(#heart-clip)">
-          <rect width="100" height="100" fill="url(#spider-glow)" />
+          <rect width="100" height="100" fill="url(#spider-red-grad)" />
 
           <!-- Паутина -->
-          <path d="M50 10 L50 85 M10 40 L90 40 M20 20 L80 80 M20 80 L80 20" stroke="#000000" stroke-width="1.2" opacity="0.4" />
-          <ellipse cx="50" cy="45" rx="16" ry="14" fill="none" stroke="#000000" stroke-width="1.2" opacity="0.35" />
-          <ellipse cx="50" cy="45" rx="30" ry="26" fill="none" stroke="#000000" stroke-width="1.2" opacity="0.35" />
+          <path d="M50 8 L50 85 M10 40 L90 40 M20 20 L80 80 M20 80 L80 20" stroke="#111418" stroke-width="1.6" opacity="0.45" />
+          <ellipse cx="50" cy="45" rx="16" ry="14" fill="none" stroke="#111418" stroke-width="1.6" opacity="0.4" />
+          <ellipse cx="50" cy="45" rx="30" ry="26" fill="none" stroke="#111418" stroke-width="1.6" opacity="0.4" />
 
-          <!-- Линзы глаз Человека-паука -->
-          <path d="M22 34 Q32 32 44 45 Q36 53 25 47 Q19 41 22 34 Z" fill="#05070a" />
+          <!-- Глаза-линзы Человека-паука -->
+          <path d="M22 34 Q32 32 44 45 Q36 53 25 47 Q19 41 22 34 Z" fill="#111418" />
           <path d="M25 36 Q33 34 42 44 Q35 50 27 46 Q22 41 25 36 Z" fill="#ffffff" />
           
-          <path d="M78 34 Q68 32 56 45 Q64 53 75 47 Q81 41 78 34 Z" fill="#05070a" />
+          <path d="M78 34 Q68 32 56 45 Q64 53 75 47 Q81 41 78 34 Z" fill="#111418" />
           <path d="M75 36 Q67 34 58 44 Q65 50 73 46 Q78 41 75 36 Z" fill="#ffffff" />
         </g>
 
-        <!-- Неоновый контур -->
+        <!-- Чёрный полужирный контур сердца -->
         <path d="M50 88.5 C25 71 5 53 5 31.5 C5 15.5 17.5 5 32 5 C40 5 46.5 9 50 15 C53.5 9 60 5 68 5 C82.5 5 95 15.5 95 31.5 C95 53 75 71 50 88.5 Z" 
-              fill="none" stroke="var(--neon-yellow)" stroke-width="2.5" opacity="0.85" />
+              fill="none" stroke="#111418" stroke-width="3.5" />
       </svg>
     </div>
 
@@ -252,7 +240,7 @@
 
     <!-- Большое окно для фото -->
     <div class="slider-wrapper" id="slider">
-      <div class="placeholder-text" id="placeholder">Загрузка фоточек... ✨</div>
+      <div class="placeholder-text" id="placeholder">Загрузка воспоминаний... ✨</div>
     </div>
 
     <!-- Таймер времени вместе -->
@@ -275,7 +263,7 @@
       </div>
     </div>
 
-    <!-- Органичная фраза -->
+    <!-- Фраза "Это лишь начало" -->
     <div class="lead-phrase">Это лишь начало</div>
 
   </div>
@@ -329,14 +317,14 @@
     setInterval(updateTimer, 1000);
     updateTimer();
 
-    // Автоматическая загрузка фото из папки photos репозитория
+    // Автоматическая загрузка фото из репозитория
     async function loadPhotos() {
       const slider = document.getElementById("slider");
       const placeholder = document.getElementById("placeholder");
       
       try {
         const res = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/photos`);
-        if (!res.ok) throw new Error("Папка photos пока пуста");
+        if (!res.ok) throw new Error("Папка photos пуста");
         
         const files = await res.json();
         const photos = files.filter(f => f.name.match(/\.(jpg|jpeg|png|webp|gif)$/i));
@@ -374,7 +362,7 @@
     loadPhotos();
 
     // ==========================================
-    // 🎨 ГЕНЕРАТОР ХАОТИЧНО ЗАКРУЧИВАЮЩИХСЯ ЛИНИЙ
+    // 🎨 ЖИРНЫЕ ЗАКРУГЛЕННЫЕ МЯТНЫЕ И ЧЁРНЫЕ ЛИНИИ
     // ==========================================
     const canvas = document.getElementById("bg-canvas");
     const ctx = canvas.getContext("2d");
@@ -387,14 +375,16 @@
     window.addEventListener("resize", resize);
     resize();
 
-    const colors = [
-      "rgba(57, 255, 20, 0.45)",   // неоновый лайм
-      "rgba(204, 255, 0, 0.4)",    // неоновый желтый
-      "rgba(255, 255, 255, 0.35)", // белый
-      "rgba(57, 255, 20, 0.2)"
+    // Палитра: сочный мятный и угольно-чёрный
+    const strokeColors = [
+      "#00e5a3",
+      "#00e5a3",
+      "#111418",
+      "#111418",
+      "#00c78e"
     ];
 
-    class Ribbon {
+    class ThickRibbon {
       constructor() {
         this.reset();
       }
@@ -402,21 +392,22 @@
       reset() {
         this.x = Math.random() * width;
         this.y = Math.random() * height;
-        this.vx = (Math.random() - 0.5) * 1.6;
-        this.vy = (Math.random() - 0.5) * 1.6;
+        this.vx = (Math.random() - 0.5) * 1.5;
+        this.vy = (Math.random() - 0.5) * 1.5;
         this.angle = Math.random() * Math.PI * 2;
-        this.angleSpeed = (Math.random() - 0.5) * 0.05;
-        this.speed = 1.2 + Math.random() * 1.8;
-        this.color = colors[Math.floor(Math.random() * colors.length)];
+        this.angleSpeed = (Math.random() - 0.5) * 0.04;
+        this.speed = 1.5 + Math.random() * 2.2;
+        this.color = strokeColors[Math.floor(Math.random() * strokeColors.length)];
         this.history = [];
-        this.maxHistory = 45 + Math.floor(Math.random() * 40);
-        this.lineWidth = 1 + Math.random() * 1.8;
+        this.maxHistory = 35 + Math.floor(Math.random() * 30);
+        // Жирная толщина линий: от 12px до 24px
+        this.lineWidth = 12 + Math.random() * 12;
       }
 
       update() {
         this.angle += this.angleSpeed;
-        if (Math.random() < 0.04) {
-          this.angleSpeed = (Math.random() - 0.5) * 0.08;
+        if (Math.random() < 0.03) {
+          this.angleSpeed = (Math.random() - 0.5) * 0.07;
         }
 
         this.x += Math.cos(this.angle) * this.speed + this.vx;
@@ -427,7 +418,7 @@
           this.history.shift();
         }
 
-        if (this.x < -100 || this.x > width + 100 || this.y < -100 || this.y > height + 100) {
+        if (this.x < -150 || this.x > width + 150 || this.y < -150 || this.y > height + 150) {
           this.reset();
         }
       }
@@ -446,17 +437,18 @@
 
         ctx.strokeStyle = this.color;
         ctx.lineWidth = this.lineWidth;
-        ctx.lineCap = "round";
-        ctx.shadowColor = this.color;
-        ctx.shadowBlur = 8;
+        ctx.lineCap = "round";   // Закруглённые концы линий
+        ctx.lineJoin = "round";  // Закруглённые сочленения
         ctx.stroke();
       }
     }
 
-    const ribbons = Array.from({ length: 22 }, () => new Ribbon());
+    // Количество жирных линий
+    const ribbons = Array.from({ length: 14 }, () => new ThickRibbon());
 
     function animate() {
-      ctx.fillStyle = "rgba(9, 10, 15, 0.18)";
+      // Очистка белым фоном с лёгким шлейфом
+      ctx.fillStyle = "rgba(248, 249, 250, 0.28)";
       ctx.fillRect(0, 0, width, height);
 
       ribbons.forEach(r => {
