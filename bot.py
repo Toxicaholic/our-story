@@ -5,6 +5,7 @@ import asyncio
 import aiohttp
 from aiohttp import web
 from aiogram import Bot, Dispatcher, F
+from aiogram.filters import CommandStart
 from aiogram.types import Message
 
 # Настройки из переменных окружения Render
@@ -28,7 +29,7 @@ async def upload_to_github(image_bytes: bytes, file_name: str) -> bool:
         "Accept": "application/vnd.github+json"
     }
     data = {
-        "message": f"Add photo {file_name} via Telegram Bot",
+        "message": f"Add photo {file_name} via Telegram Bot ❤️",
         "content": encoded_content
     }
 
@@ -36,13 +37,20 @@ async def upload_to_github(image_bytes: bytes, file_name: str) -> bool:
         async with session.put(url, headers=headers, json=data) as resp:
             return resp.status in (200, 201)
 
+@dp.message(CommandStart())
+async def handle_start(message: Message):
+    if ALLOWED_USERS and str(message.from_user.id) not in ALLOWED_USERS:
+        await message.reply("Ой, доступ закрыт 💔")
+        return
+    await message.reply("Привет, любимые! 💕\nОтправьте мне фоточку, и я с любовью добавлю её в наш слайдер воспоминаний! 📸✨")
+
 @dp.message(F.photo)
 async def handle_photo(message: Message):
     if ALLOWED_USERS and str(message.from_user.id) not in ALLOWED_USERS:
-        await message.reply("Доступ закрыт ⛔")
+        await message.reply("Ой, доступ закрыт 💔")
         return
 
-    msg = await message.reply("⏳ Загружаю фото на сайт...")
+    msg = await message.reply("Бережно сохраняю наше воспоминание... ⏳💖")
     
     photo = message.photo[-1]
     file = await bot.get_file(photo.file_id)
@@ -54,17 +62,20 @@ async def handle_photo(message: Message):
 
     success = await upload_to_github(image_bytes, filename)
     if success:
-        await msg.edit_text("✅ Фото успешно добавлено в слайдер!")
+        await msg.edit_text("Ура! Фоточка успешно добавлена в наш альбомчик! 💞🥰")
     else:
-        await msg.edit_text("❌ Ошибка отправки на GitHub. Проверьте права токена.")
+        await msg.edit_text("Ой, что-то пошло не так при отправке на GitHub... 🥺💔 Попробуй ещё разок!")
 
 @dp.message()
 async def fallback(message: Message):
-    await message.reply("Отправь мне фотографию, и я загружу её на сайт.")
+    if ALLOWED_USERS and str(message.from_user.id) not in ALLOWED_USERS:
+        await message.reply("Ой, доступ закрыт 💔")
+        return
+    await message.reply("Жду от тебя красивую фотографию! 💌 Отправь мне фоточку, и она появится на нашем сайте 💕")
 
-# Пустышка веб-сервера, чтобы Render мгновенно увидел рабочий порт
+# Вспомогательный веб-сервер для Render Web Service
 async def handle_ping(request):
-    return web.Response(text="Bot is running!")
+    return web.Response(text="Bot is in love! ❤️")
 
 async def start_web_server():
     app = web.Application()
@@ -78,8 +89,7 @@ async def start_web_server():
     print(f"Web server started on port {port}")
 
 async def main():
-    print("Бот запускается...")
-    # Запускаем одновременно веб-сервер для Render и опрос Telegram
+    print("Бот с сердечками запущен... ❤️")
     await start_web_server()
     await dp.start_polling(bot)
 
