@@ -34,7 +34,7 @@
       position: relative;
     }
 
-    /* Фоновый холст с жирными мятными и чёрными линиями */
+    /* Фоновый холст с огромными жирными закруглёнными линиями */
     #bg-canvas {
       position: fixed;
       top: 0;
@@ -50,12 +50,12 @@
       position: relative;
       z-index: 1;
       background: var(--card-bg);
-      border: 3px solid var(--black);
+      border: 3.5px solid var(--black);
       border-radius: 36px;
       padding: 36px 26px;
       width: 100%;
       max-width: 560px;
-      box-shadow: 10px 14px 0px var(--black);
+      box-shadow: 12px 16px 0px var(--black);
       text-align: center;
     }
 
@@ -94,7 +94,7 @@
       margin-bottom: 22px;
     }
 
-    /* Большое окно для фото с чёрной окантовкой */
+    /* Окно для фото */
     .slider-wrapper {
       position: relative;
       width: 100%;
@@ -104,7 +104,7 @@
       border-radius: 24px;
       overflow: hidden;
       background: #f1f3f5;
-      border: 2.5px solid var(--black);
+      border: 3px solid var(--black);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -140,7 +140,7 @@
 
     .timer-item {
       background: #ffffff;
-      border: 2px solid var(--black);
+      border: 2.5px solid var(--black);
       border-radius: 18px;
       padding: 12px 4px;
       box-shadow: 3px 4px 0px var(--black);
@@ -166,7 +166,7 @@
       font-weight: 700;
     }
 
-    /* Стильная органичная плашка "Это лишь начало" */
+    /* Стильная плашка "Это лишь начало" */
     .lead-phrase {
       display: inline-flex;
       align-items: center;
@@ -179,14 +179,14 @@
       padding: 10px 22px;
       border-radius: 999px;
       background: #ffffff;
-      border: 2px solid var(--black);
+      border: 2.5px solid var(--black);
       box-shadow: 3px 4px 0px var(--black);
     }
 
     .lead-phrase::before {
       content: "";
-      width: 9px;
-      height: 9px;
+      width: 10px;
+      height: 10px;
       background: var(--mint);
       border: 2px solid var(--black);
       border-radius: 50%;
@@ -195,12 +195,12 @@
 </head>
 <body>
 
-  <!-- Фон: перемещающиеся жирные мятные и чёрные линии с закруглениями -->
+  <!-- Фон с гигантскими закруглёнными линиями -->
   <canvas id="bg-canvas"></canvas>
 
   <div class="card">
     
-    <!-- Сердце с Человеком-пауком -->
+    <!-- Сердечко со Spider-Man -->
     <div class="spidey-heart-container">
       <svg class="spidey-heart" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -222,7 +222,7 @@
           <ellipse cx="50" cy="45" rx="16" ry="14" fill="none" stroke="#111418" stroke-width="1.6" opacity="0.4" />
           <ellipse cx="50" cy="45" rx="30" ry="26" fill="none" stroke="#111418" stroke-width="1.6" opacity="0.4" />
 
-          <!-- Глаза-линзы Человека-паука -->
+          <!-- Линзы глаз Человека-паука -->
           <path d="M22 34 Q32 32 44 45 Q36 53 25 47 Q19 41 22 34 Z" fill="#111418" />
           <path d="M25 36 Q33 34 42 44 Q35 50 27 46 Q22 41 25 36 Z" fill="#ffffff" />
           
@@ -230,7 +230,7 @@
           <path d="M75 36 Q67 34 58 44 Q65 50 73 46 Q78 41 75 36 Z" fill="#ffffff" />
         </g>
 
-        <!-- Чёрный полужирный контур сердца -->
+        <!-- Чёрный контур сердца -->
         <path d="M50 88.5 C25 71 5 53 5 31.5 C5 15.5 17.5 5 32 5 C40 5 46.5 9 50 15 C53.5 9 60 5 68 5 C82.5 5 95 15.5 95 31.5 C95 53 75 71 50 88.5 Z" 
               fill="none" stroke="#111418" stroke-width="3.5" />
       </svg>
@@ -238,7 +238,7 @@
 
     <h1>Наша история</h1>
 
-    <!-- Большое окно для фото -->
+    <!-- Окно для фото -->
     <div class="slider-wrapper" id="slider">
       <div class="placeholder-text" id="placeholder">Загрузка воспоминаний... ✨</div>
     </div>
@@ -362,7 +362,7 @@
     loadPhotos();
 
     // ==========================================
-    // 🎨 ЖИРНЫЕ ЗАКРУГЛЕННЫЕ МЯТНЫЕ И ЧЁРНЫЕ ЛИНИИ
+    // 🎨 ОГРОМНЫЕ ЗАКРУГЛЕННЫЕ МЯТНЫЕ И ЧЁРНЫЕ ЛИНИИ
     // ==========================================
     const canvas = document.getElementById("bg-canvas");
     const ctx = canvas.getContext("2d");
@@ -375,16 +375,15 @@
     window.addEventListener("resize", resize);
     resize();
 
-    // Палитра: сочный мятный и угольно-чёрный
     const strokeColors = [
       "#00e5a3",
       "#00e5a3",
       "#111418",
       "#111418",
-      "#00c78e"
+      "#05c991"
     ];
 
-    class ThickRibbon {
+    class GiantRibbon {
       constructor() {
         this.reset();
       }
@@ -392,22 +391,22 @@
       reset() {
         this.x = Math.random() * width;
         this.y = Math.random() * height;
-        this.vx = (Math.random() - 0.5) * 1.5;
-        this.vy = (Math.random() - 0.5) * 1.5;
+        this.vx = (Math.random() - 0.5) * 1.8;
+        this.vy = (Math.random() - 0.5) * 1.8;
         this.angle = Math.random() * Math.PI * 2;
-        this.angleSpeed = (Math.random() - 0.5) * 0.04;
-        this.speed = 1.5 + Math.random() * 2.2;
+        this.angleSpeed = (Math.random() - 0.5) * 0.035;
+        this.speed = 1.8 + Math.random() * 2.2;
         this.color = strokeColors[Math.floor(Math.random() * strokeColors.length)];
         this.history = [];
-        this.maxHistory = 35 + Math.floor(Math.random() * 30);
-        // Жирная толщина линий: от 12px до 24px
-        this.lineWidth = 12 + Math.random() * 12;
+        this.maxHistory = 45 + Math.floor(Math.random() * 30);
+        // Очень жирная толщина: от 28px до 48px
+        this.lineWidth = 28 + Math.random() * 20;
       }
 
       update() {
         this.angle += this.angleSpeed;
         if (Math.random() < 0.03) {
-          this.angleSpeed = (Math.random() - 0.5) * 0.07;
+          this.angleSpeed = (Math.random() - 0.5) * 0.06;
         }
 
         this.x += Math.cos(this.angle) * this.speed + this.vx;
@@ -418,7 +417,7 @@
           this.history.shift();
         }
 
-        if (this.x < -150 || this.x > width + 150 || this.y < -150 || this.y > height + 150) {
+        if (this.x < -200 || this.x > width + 200 || this.y < -200 || this.y > height + 200) {
           this.reset();
         }
       }
@@ -437,18 +436,18 @@
 
         ctx.strokeStyle = this.color;
         ctx.lineWidth = this.lineWidth;
-        ctx.lineCap = "round";   // Закруглённые концы линий
-        ctx.lineJoin = "round";  // Закруглённые сочленения
+        ctx.lineCap = "round";   // Скругленные массивные концы
+        ctx.lineJoin = "round";
         ctx.stroke();
       }
     }
 
-    // Количество жирных линий
-    const ribbons = Array.from({ length: 14 }, () => new ThickRibbon());
+    // 10 массивных линий, чтобы не перегружать экран, но заполнить пространство
+    const ribbons = Array.from({ length: 10 }, () => new GiantRibbon());
 
     function animate() {
-      // Очистка белым фоном с лёгким шлейфом
-      ctx.fillStyle = "rgba(248, 249, 250, 0.28)";
+      // Плавный след
+      ctx.fillStyle = "rgba(248, 249, 250, 0.32)";
       ctx.fillRect(0, 0, width, height);
 
       ribbons.forEach(r => {
