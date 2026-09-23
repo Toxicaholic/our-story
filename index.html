@@ -94,7 +94,7 @@
       margin-bottom: 22px;
     }
 
-    /* Адаптивное окно слайдера: плавно меняет И ШИРИНУ, И ВЫСОТУ под каждый снимок */
+    /* Адаптивное окно слайдера (подстраивается и по ширине, и по высоте) */
     .slider-wrapper {
       position: relative;
       width: 100%;
@@ -116,7 +116,7 @@
       position: absolute;
       width: 100%;
       height: 100%;
-      object-fit: cover; /* Заполняет рамку встык без пустых полей */
+      object-fit: cover;
       opacity: 0;
       transition: opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -168,18 +168,19 @@
       font-weight: 700;
     }
 
-    /* Кнопка ссылки на бота */
+    /* Кнопка ссылки на бота: значок увеличен и отцентрирован */
     .bot-link-btn {
       display: inline-flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 10px;
       margin-bottom: 20px;
-      padding: 12px 26px;
+      padding: 14px 28px;
       background: #ffffff;
       color: var(--black);
       border: 2.5px solid var(--black);
-      border-radius: 999px;
+      border-radius: 28px;
       text-decoration: none;
       font-size: 13px;
       font-weight: 800;
@@ -199,16 +200,23 @@
       box-shadow: 1px 2px 0px var(--black);
     }
 
+    /* Увеличенный мятный круг с идеально отцентрированной камерой */
     .bot-icon-badge {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 26px;
-      height: 26px;
+      width: 44px;
+      height: 44px;
       background: var(--mint);
-      border: 1.5px solid var(--black);
+      border: 2.5px solid var(--black);
       border-radius: 50%;
-      font-size: 12px;
+      box-shadow: 2px 2px 0px var(--black);
+    }
+
+    .bot-icon-badge svg {
+      width: 22px;
+      height: 22px;
+      display: block;
     }
 
     /* Контейнер под кнопки и статус */
@@ -290,7 +298,7 @@
 
     <h1>Наша история</h1>
 
-    <!-- Адаптивное окно слайдера (подстраивается и по ширине, и по высоте) -->
+    <!-- Адаптивное окно слайдера -->
     <div class="slider-wrapper" id="slider">
       <div class="placeholder-text" id="placeholder">Загрузка воспоминаний... ✨</div>
     </div>
@@ -316,9 +324,14 @@
     </div>
 
     <div class="footer-actions">
-      <!-- Кнопка перехода в Telegram-бота -->
+      <!-- Кнопка перехода в Telegram-бота с крупной отцентрированной камерой -->
       <a href="https://t.me/uploudvikatoliaphotobot" target="_blank" class="bot-link-btn">
-        <span class="bot-icon-badge">📸</span>
+        <div class="bot-icon-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#111418" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+            <circle cx="12" cy="13" r="4"></circle>
+          </svg>
+        </div>
         <span>Добавить фото в альбом</span>
       </a>
 
@@ -366,31 +379,29 @@
       document.getElementById("days").innerText = days;
       document.getElementById("hours").innerText = hours;
       document.getElementById("mins").innerText = mins;
-      document.getElementById("secs").innerText = secs;
-
+      document.getElementById("secs-label").innerText = declension(secs, ["секунда", "секунды", "секунд"]);
       document.getElementById("days-label").innerText = declension(days, ["день", "дня", "дней"]);
       document.getElementById("hours-label").innerText = declension(hours, ["час", "часа", "часов"]);
       document.getElementById("mins-label").innerText = declension(mins, ["минута", "минуты", "минут"]);
-      document.getElementById("secs-label").innerText = declension(secs, ["секунда", "секунды", "секунд"]);
+      document.getElementById("secs").innerText = secs;
     }
 
     setInterval(updateTimer, 1000);
     updateTimer();
 
-    // Функция подстройки рамки СРАЗУ ПО ДВУМ ОСЯМ (ШИРИНА И ВЫСОТА)
+    // Функция подстройки рамки сразу по ширине и высоте
     function adjustFrameToImage(imgElement) {
       const slider = document.getElementById("slider");
       const card = document.querySelector(".card");
       if (!imgElement || !imgElement.naturalWidth || !imgElement.naturalHeight) return;
 
-      const cardInnerWidth = (card ? card.clientWidth - 52 : 460); // с учетом внутренних отступов карточки
+      const cardInnerWidth = (card ? card.clientWidth - 52 : 460);
       const maxAllowedWidth = Math.min(500, Math.max(260, cardInnerWidth));
       const maxAllowedHeight = 520;
 
       const nw = imgElement.naturalWidth;
       const nh = imgElement.naturalHeight;
 
-      // Масштабируем так, чтобы фото точно легло в рамку без лишних пустых полей
       const scale = Math.min(maxAllowedWidth / nw, maxAllowedHeight / nh);
       
       const targetW = Math.round(nw * scale);
@@ -436,7 +447,6 @@
           imageElements.push(img);
         });
 
-        // Автолистание и синхронная подгонка рамки (и ширина, и высота)
         if (imageElements.length > 1) {
           let currentIndex = 0;
           
@@ -457,7 +467,6 @@
 
     loadPhotos();
 
-    // Пересчёт при изменении экрана / повороте телефона
     window.addEventListener("resize", () => {
       const activeImg = document.querySelector(".slider-img.active");
       if (activeImg) adjustFrameToImage(activeImg);
